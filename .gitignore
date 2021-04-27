@@ -1,2 +1,4 @@
 /.conan/*
 !/.conan/data
+*.count
+*.lock

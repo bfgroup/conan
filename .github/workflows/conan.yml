@@ -1,6 +1,4 @@
 env:
-    CONAN_USERNAME: ""
-    CONAN_CHANNEL: ""
     CONAN_REMOTES: "https://barbarian.bfgroup.xyz/@barbarian, https://bincrafters.jfrog.io/artifactory/api/conan/public-conan@bincrafters"
     BPT_SPLIT_BY_BUILD_TYPES: "true"
 

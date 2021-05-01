@@ -77,8 +77,10 @@ class olcPixelGameEngineConan(ConanFile):
     def package(self):
         self.copy(pattern="LICENCE.md", dst="licenses",
                   src=self._source_subfolder)
+        # The main PGE header.
         self.copy(pattern="olcPixelGameEngine.h",
                   dst="include", src=self._source_subfolder)
+        # Also add the included PGEX extensions.
         self.copy(pattern="*.h", dst="include",
                   src=self._source_subfolder+"/Extensions")
 

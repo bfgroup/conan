@@ -7,7 +7,16 @@ required_conan_version = ">=1.32.0"
 class olcPixelGameEngineConan(ConanFile):
     name = "olc-pge"
     homepage = "https://github.com/OneLoneCoder/olcPixelGameEngine"
-    description = "The olcPixelGameEngine is a single-file prototyping and game-engine framework created in C++."
+    description = '''\
+The olcPixelGameEngine is a single-file prototyping and game-engine framework created in C++.
+
+Options:
+
+image_loader : The backend to use for loading image data.
+    png : Uses libpng, and adds a dependency for it. This is the default on non-Windows platforms.
+    stb : Uses stb single-file library, and adds a dependency for it.
+    gdi : The default on Windows, uses system "gdi32" and "gdiplus" libraries.
+'''
     topics = ("conan", "olc", "pge", "pixelengine", "pixelgameengine", "pgex",
               "game-development", "game-engine", "engine", "gamedev", "gaming", "graphics")
     license = "LicenseRef-LICENSE"

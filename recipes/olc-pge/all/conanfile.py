@@ -20,6 +20,7 @@ class olcPixelGameEngineConan(ConanFile):
         "image_loader": "png",
     }
     no_copy_source = True
+    build_olicy = "missing"
 
     @property
     def _source_subfolder(self):

@@ -21,13 +21,14 @@ image_loader : The backend to use for loading image data.
               "game-development", "game-engine", "engine", "gamedev", "gaming", "graphics")
     license = "LicenseRef-LICENSE"
     url = "https://github.com/conan-io/conan-center-index"
-    settings = "os", "arch", "compiler", "build_type"
     options = {
         "image_loader": ["png", "stb", "gdi"],
     }
     default_options = {
         "image_loader": "png",
     }
+    
+    settings = "os", "arch", "compiler", "build_type"
     no_copy_source = True
     build_policy = "missing"
 

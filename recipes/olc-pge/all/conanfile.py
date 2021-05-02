@@ -29,7 +29,7 @@ image_loader : The backend to use for loading image data.
         "image_loader": "png",
     }
     no_copy_source = True
-    build_olicy = "missing"
+    build_policy = "missing"
 
     @property
     def _source_subfolder(self):

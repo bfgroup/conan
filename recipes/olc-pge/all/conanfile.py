@@ -29,8 +29,8 @@ image_loader : The backend to use for loading image data.
     }
     
     settings = "os", "arch", "compiler", "build_type"
-    no_copy_source = True
     build_policy = "missing"
+    no_copy_source = True
 
     @property
     def _source_subfolder(self):

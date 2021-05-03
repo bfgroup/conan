@@ -2,3 +2,4 @@
 !/.conan/data
 *.count
 *.lock
+/**/test_package/build

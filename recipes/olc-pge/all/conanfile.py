@@ -60,6 +60,12 @@ image_loader : The backend to use for loading image data.
         if self.settings.compiler == "apple-clang" and tools.Version(self.settings.compiler.version) < "11.0":
             raise errors.ConanInvalidConfiguration(
                 "Xcode older than 11.0 not compatible")
+        if self.settings.compiler == "gcc" and tools.Version(self.settings.compiler.version) < "8.0":
+            raise errors.ConanInvalidConfiguration(
+                "GCC older than 8.0 not compatible")
+        if self.settings.compiler == "clang" and tools.Version(self.settings.compiler.version) < "7.0":
+            raise errors.ConanInvalidConfiguration(
+                "Clang older than 7.0 not compatible")
 
     def package_id(self):
         # Only clear some of the header only impacting values. We keep the header_only line,

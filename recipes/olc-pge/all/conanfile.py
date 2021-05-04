@@ -72,7 +72,7 @@ image_loader : The backend to use for loading image data.
         # but commented out, to fool the package checks from failing because this doesn't
         # have binaries.
         # self.info.header_only()
-        self.info.settings.clear()
+        # self.info.settings.clear()
         self.info.options.clear()
         self.info.requires.clear()
 

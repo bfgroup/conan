@@ -7,18 +7,29 @@ required_conan_version = ">=1.32.0"
 class olcPixelGameEngineConan(ConanFile):
     name = "olc-pge"
     homepage = "https://github.com/OneLoneCoder/olcPixelGameEngine"
-    description = "The olcPixelGameEngine is a single-file prototyping and game-engine framework created in C++."
+    description = '''\
+The olcPixelGameEngine is a single-file prototyping and game-engine framework created in C++.
+
+Options:
+
+image_loader : The backend to use for loading image data.
+    png : Uses libpng, and adds a dependency for it. This is the default on non-Windows platforms.
+    stb : Uses stb single-file library, and adds a dependency for it.
+    gdi : The default on Windows, uses system "gdi32" and "gdiplus" libraries.
+'''
     topics = ("conan", "olc", "pge", "pixelengine", "pixelgameengine", "pgex",
               "game-development", "game-engine", "engine", "gamedev", "gaming", "graphics")
     license = "LicenseRef-LICENSE"
     url = "https://github.com/conan-io/conan-center-index"
-    settings = "os", "arch", "compiler", "build_type"
     options = {
         "image_loader": ["png", "stb", "gdi"],
     }
     default_options = {
         "image_loader": "png",
     }
+    
+    settings = "os", "arch", "compiler", "build_type"
+    build_policy = "missing"
     no_copy_source = True
 
     @property
@@ -49,9 +60,17 @@ class olcPixelGameEngineConan(ConanFile):
         if self.settings.compiler == "apple-clang" and tools.Version(self.settings.compiler.version) < "11.0":
             raise errors.ConanInvalidConfiguration(
                 "Xcode older than 11.0 not compatible")
+        if self.settings.compiler == "gcc" and tools.Version(self.settings.compiler.version) < "8.0":
+            raise errors.ConanInvalidConfiguration(
+                "GCC older than 8.0 not compatible")
+        if self.settings.compiler == "clang" and tools.Version(self.settings.compiler.version) < "7.0":
+            raise errors.ConanInvalidConfiguration(
+                "Clang older than 7.0 not compatible")
 
     def package_id(self):
-        # Only clear some of the header only impacting values.
+        # Only clear some of the header only impacting values. We keep the header_only line,
+        # but commented out, to fool the package checks from failing because this doesn't
+        # have binaries.
         # self.info.header_only()
         # self.info.settings.clear()
         self.info.options.clear()
@@ -75,8 +94,10 @@ class olcPixelGameEngineConan(ConanFile):
     def package(self):
         self.copy(pattern="LICENCE.md", dst="licenses",
                   src=self._source_subfolder)
+        # The main PGE header.
         self.copy(pattern="olcPixelGameEngine.h",
                   dst="include", src=self._source_subfolder)
+        # Also add the included PGEX extensions.
         self.copy(pattern="*.h", dst="include",
                   src=self._source_subfolder+"/Extensions")
 

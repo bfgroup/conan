@@ -1,5 +1,2 @@
-/.conan/*
-!/.conan/data
-*.count
-*.lock
+/.conan/
 /**/test_package/build

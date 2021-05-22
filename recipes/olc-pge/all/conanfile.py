@@ -75,13 +75,7 @@ image_loader : The backend to use for loading image data.
         #         tools.save()
 
     def package_id(self):
-        # Only clear some of the header only impacting values. We keep the header_only line,
-        # but commented out, to fool the package checks from failing because this doesn't
-        # have binaries.
-        # self.info.header_only()
-        # self.info.settings.clear()
-        self.info.options.clear()
-        self.info.requires.clear()
+        self.info.header_only()
 
     def source(self):
         tools.get(**self.conan_data["sources"][self.version],

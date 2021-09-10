@@ -1,0 +1,7 @@
+sources:
+  "2.15":
+    url: "https://github.com/OneLoneCoder/olcPixelGameEngine/archive/refs/tags/v2.15.tar.gz"
+    sha256: "db404962aad52b05edcf4bb08b63f99878a0937d0b1b0d6b9b79e1bc52efa489"
+  "2.16":
+    url: "https://github.com/OneLoneCoder/olcPixelGameEngine/archive/refs/tags/v2.16.tar.gz"
+    sha256: "4984705ae43772edac69a6c916f04e2b4bd86553f4bc7feabbf8de286b25a820"

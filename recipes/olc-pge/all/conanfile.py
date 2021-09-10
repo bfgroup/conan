@@ -1,43 +1,68 @@
+'''
+@author: René Ferdinand Rivera Morell
+@copyright: Copyright René Ferdinand Rivera Morell 2021
+@license:
+    Distributed under the Boost Software License, Version 1.0.
+    (See accompanying file LICENSE_1_0.txt or copy at
+    http://www.boost.org/LICENSE_1_0.txt)
+'''
 from conans import ConanFile, tools, errors
 import os
 
 required_conan_version = ">=1.32.0"
 
 
-class olcPixelGameEngineConan(ConanFile):
+class Package(ConanFile):
     name = "olc-pge"
     homepage = "https://github.com/OneLoneCoder/olcPixelGameEngine"
-    description = '''\
-The olcPixelGameEngine is a single-file prototyping and game-engine framework created in C++.
-
-Options:
-
-image_loader : The backend to use for loading image data.
-    png : Uses libpng, and adds a dependency for it. This is the default on non-Windows platforms.
-    stb : Uses stb single-file library, and adds a dependency for it.
-    gdi : The default on Windows, uses system "gdi32" and "gdiplus" libraries.
-'''
+    description = "The olcPixelGameEngine is a single-file prototyping and game-engine framework created in C++."
     topics = ("conan", "olc", "pge", "pixelengine", "pixelgameengine", "pgex",
               "game-development", "game-engine", "engine", "gamedev", "gaming", "graphics")
-    license = "LicenseRef-LICENSE"
-    url = "https://github.com/conan-io/conan-center-index"
+    license = "OLC-3"
+    url = "https://github.com/bfgroup/conan/tree/main/recipes/olc-pge"
     options = {
         "image_loader": ["png", "stb", "gdi"],
     }
     default_options = {
         "image_loader": "png",
     }
-    
     settings = "os", "arch", "compiler", "build_type"
-    build_policy = "missing"
+    barbarian = {
+        "description": {
+            "format": "asciidoc",
+            "text": '''\
+= olcPixelGameEngine
+
+The olcPixelGameEngine is a single-file prototyping and game-engine framework created in C++.
+
+== Options
+
+`image_loader`::
+
+The backend to use for loading image data.
+
+    * `png` : Uses libpng, and adds a dependency for it. This is the default on non-Windows platforms.
+    * `stb` : Uses stb single-file library, and adds a dependency for it.
+    * `gdi` : The default on Windows, uses system "gdi32" and "gdiplus" libraries.
+
+== License
+
+Uses custom link:https://raw.githubusercontent.com/OneLoneCoder/olcPixelGameEngine/master/LICENCE.md[OLC-3]
+license.
+'''
+        }
+    }
+    source_subfolder = "source_subfolder"
+
+    def source(self):
+        tools.get(**self.conan_data["sources"][self.version],
+                  strip_root=True, destination=self.source_subfolder)
+        tools.replace_in_file(os.path.join(
+            self.source_subfolder, "olcPixelGameEngine.h"), "#define GL_SILENCE_DEPRECATION", "")
+
     no_copy_source = True
 
-    @property
-    def _source_subfolder(self):
-        return "source_subfolder"
-
     def config_options(self):
-        # Default option values.. (can be overridden by downstream)
         if self.settings.os == "Windows":
             self.options.image_loader = "gdi"
 
@@ -74,15 +99,6 @@ image_loader : The backend to use for loading image data.
         #     with tools.chdir("/tmp"):
         #         tools.save()
 
-    def package_id(self):
-        self.info.header_only()
-
-    def source(self):
-        tools.get(**self.conan_data["sources"][self.version],
-                  strip_root=True, destination=self._source_subfolder)
-        tools.replace_in_file(os.path.join(
-            self._source_subfolder, "olcPixelGameEngine.h"), "#define GL_SILENCE_DEPRECATION", "")
-
     def requirements(self):
         self.requires("opengl/system")
         if self.settings.os == "Linux":
@@ -92,15 +108,18 @@ image_loader : The backend to use for loading image data.
         elif self.options.image_loader == "png":
             self.requires("libpng/1.6.37")
 
+    def package_id(self):
+        self.info.header_only()
+
     def package(self):
         self.copy(pattern="LICENCE.md", dst="licenses",
-                  src=self._source_subfolder)
+                  src=self.source_subfolder)
         # The main PGE header.
         self.copy(pattern="olcPixelGameEngine.h",
-                  dst="include", src=self._source_subfolder)
+                  dst="include", src=self.source_subfolder)
         # Also add the included PGEX extensions.
         self.copy(pattern="*.h", dst="include",
-                  src=self._source_subfolder+"/Extensions")
+                  src=self.source_subfolder+"/Extensions")
 
     def package_info(self):
         self.cpp_info.libdirs = []

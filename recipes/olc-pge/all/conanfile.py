@@ -18,7 +18,8 @@ class Package(ConanFile):
     description = "The olcPixelGameEngine is a single-file prototyping and game-engine framework created in C++."
     topics = (
         "olc", "pge", "pixelengine", "pixelgameengine", "pgex",
-        "game-development", "game-engine", "engine", "gamedev", "gaming", "graphics")
+        "engine", "graphics",
+        "game-engine", "game-development", "game-dev", "gamedev", "gaming", "games")
     license = "OLC-3"
     url = "https://github.com/bfgroup/conan/tree/main/recipes/olc-pge"
     options = {

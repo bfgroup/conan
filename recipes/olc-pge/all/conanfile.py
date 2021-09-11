@@ -19,7 +19,7 @@ class Package(ConanFile):
     topics = (
         "olc", "pge", "pixelengine", "pixelgameengine", "pgex",
         "engine", "graphics",
-        "game-engine", "game-development", "game-dev", "gamedev", "gaming", "games")
+        "game-engine", "game-development", "game-dev", "gamedev", "games")
     license = "OLC-3"
     url = "https://github.com/bfgroup/conan/tree/main/recipes/olc-pge"
     options = {

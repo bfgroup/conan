@@ -8,7 +8,7 @@ created in C++. It is a cross-platform supporting Windows, Linux, and macOS.
 `image_loader`::
 
 Indicates the backend to use for loading image data. For library specific
-backends the package will automatically add a dependency to the needed
+backends the recipe will automatically add a dependency to the needed
 Conan Center package.
 
 * `png` : Uses libpng. This is the default on non-Windows platforms.

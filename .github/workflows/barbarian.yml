@@ -1,6 +1,8 @@
 env:
     CONAN_REMOTES: "https://barbarian.bfgroup.xyz/github@barbarian-github, https://bincrafters.jfrog.io/artifactory/api/conan/public-conan@bincrafters"
     CONAN_CHANNEL: "testing"
+    CONAN_STABLE_BRANCH_PATTERN: "release/*"
+    CONAN_UPLOAD_ONLY_WHEN_STABLE: 1
     BPT_MATRIX_SPLIT_BY_BUILD_TYPES: "true"
 
 on:

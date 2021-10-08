@@ -1,10 +1,6 @@
 env:
-    # CONAN_REMOTES: "https://barbarian.bfgroup.xyz/github@True@barbarian-github, https://center.conan.io@True@conan-center, https://bincrafters.jfrog.io/artifactory/api/conan/public-conan@True@bincrafters"
-    CONAN_REMOTES: ""
-    CONAN_UPLOAD: ""
+    CONAN_REMOTES: "https://barbarian.bfgroup.xyz/github@barbarian-github, https://bincrafters.jfrog.io/artifactory/api/conan/public-conan@bincrafters"
     BPT_SPLIT_BY_BUILD_TYPES: "true"
-    CONAN_STABLE_BRANCH_PATTERN: "_/*"
-    CONAN_UPLOAD_ONLY_WHEN_STABLE: 1
 
 on:
     push:
@@ -30,7 +26,7 @@ jobs:
                   python-version: "3.x"
             - name: Install Package Tools
               run: |
-                  pip install git+https://github.com/bincrafters/bincrafters-package-tools@issue/1391
+                  pip install git+https://github.com/bfgroup/bincrafters-package-tools@develop
                   conan user
             - name: Generate Job Matrix
               id: set-matrix
@@ -58,7 +54,7 @@ jobs:
               env:
                   BPT_MATRIX: ${{toJson(matrix.config)}}
               run: |
-                  pip install git+https://github.com/bincrafters/bincrafters-package-tools@issue/1391
+                  pip install git+https://github.com/bfgroup/bincrafters-package-tools@develop
                   # remove newlines from matrix first
                   matrix=$(echo ${BPT_MATRIX})
                   bincrafters-package-tools prepare-env --platform gha --config "${matrix}"

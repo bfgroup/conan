@@ -2,6 +2,7 @@
 
 The olcPixelGameEngine is a single-file prototyping and game-engine framework
 created in C++. It is a cross-platform supporting Windows, Linux, and macOS.
+The engine is based on the OpenGL rendering API.
 
 == Options
 

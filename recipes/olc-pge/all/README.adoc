@@ -1,6 +1,7 @@
 = olcPixelGameEngine
 
-The olcPixelGameEngine is a single-file prototyping and game-engine framework created in C++.
+The olcPixelGameEngine is a single-file prototyping and game-engine framework
+created in C++. It is a cross-platform supporting Windows, Linux, and macOS.
 
 == Options
 
@@ -8,11 +9,12 @@ The olcPixelGameEngine is a single-file prototyping and game-engine framework cr
 
 The backend to use for loading image data.
 
-    * `png` : Uses libpng, and adds a dependency for it. This is the default on non-Windows platforms.
-    * `stb` : Uses stb single-file library, and adds a dependency for it.
-    * `gdi` : The default on Windows, uses system "gdi32" and "gdiplus" libraries.
+* `png` : Uses libpng, and adds a dependency for it. This is the default on
+	non-Windows platforms.
+* `stb` : Uses stb single-file library, and adds a dependency for it.
+* `gdi` : The default on Windows, uses system "gdi32" and "gdiplus" libraries.
 
 == License
 
-Uses custom link:https://raw.githubusercontent.com/OneLoneCoder/olcPixelGameEngine/master/LICENCE.md[OLC-3]
+Uses link:https://raw.githubusercontent.com/OneLoneCoder/olcPixelGameEngine/master/LICENCE.md[OLC-3]
 license.

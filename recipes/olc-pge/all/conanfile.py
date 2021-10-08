@@ -9,8 +9,6 @@
 from conans import ConanFile, tools, errors
 import os
 
-required_conan_version = ">=1.32.0"
-
 
 class Package(ConanFile):
     name = "olc-pge"
@@ -30,30 +28,9 @@ class Package(ConanFile):
     }
     settings = "os", "arch", "compiler", "build_type"
     barbarian = {
-        "description": {
-            "format": "asciidoc",
-            "text": '''\
-= olcPixelGameEngine
-
-The olcPixelGameEngine is a single-file prototyping and game-engine framework created in C++.
-
-== Options
-
-`image_loader`::
-
-The backend to use for loading image data.
-
-    * `png` : Uses libpng, and adds a dependency for it. This is the default on non-Windows platforms.
-    * `stb` : Uses stb single-file library, and adds a dependency for it.
-    * `gdi` : The default on Windows, uses system "gdi32" and "gdiplus" libraries.
-
-== License
-
-Uses custom link:https://raw.githubusercontent.com/OneLoneCoder/olcPixelGameEngine/master/LICENCE.md[OLC-3]
-license.
-'''
-        }
+        "description": {"format": "asciidoc", "file": "README.adoc"}
     }
+    exports = "README.adoc"
     source_subfolder = "source_subfolder"
 
     def source(self):
@@ -106,7 +83,7 @@ license.
         if self.settings.os == "Linux":
             self.requires("xorg/system")
         if self.options.image_loader == "stb":
-            self.requires("stb/20200203")
+            self.requires("stb/cci.20210713")
         elif self.options.image_loader == "png":
             self.requires("libpng/1.6.37")
 

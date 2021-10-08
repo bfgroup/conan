@@ -11,8 +11,9 @@ Indicates the backend to use for loading image data. For library specific
 backends the recipe will automatically add a dependency to the needed
 Conan Center package.
 
-* `png` : Uses libpng. This is the default on non-Windows platforms.
-* `stb` : Uses stb single-file library.
+* `png` : Uses link:https://conan.io/center/libpng[libpng]. This is the default
+	on non-Windows platforms.
+* `stb` : Uses link:https://conan.io/center/stb[stb] single-file library.
 * `gdi` : The default on Windows, uses system "gdi32" and "gdiplus" libraries.
 
 == License

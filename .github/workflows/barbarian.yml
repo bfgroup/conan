@@ -3,6 +3,7 @@ env:
     CONAN_STABLE_BRANCH_PATTERN: "_____"
     CONAN_UPLOAD_ONLY_WHEN_STABLE: 1
     BPT_NO_UPLOAD: yes
+    CONAN_BUILD_POLICY: "missing"
 
 on:
     push:

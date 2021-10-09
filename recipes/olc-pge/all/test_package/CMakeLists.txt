@@ -10,7 +10,7 @@ include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
 if(APPLE)
-	set_source_files_properties(test_package.cpp LANGUAGE OBJCXX)
+	set_source_files_properties(test_package.cpp PROPERTIES LANGUAGE OBJCXX)
 endif()
 
 add_executable(${PROJECT_NAME} test_package.cpp)

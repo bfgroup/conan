@@ -9,6 +9,10 @@ endif()
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
+if(APPLE)
+	set_source_files_properties(test_package.cpp LANGUAGE OBJCXX)
+endif()
+
 add_executable(${PROJECT_NAME} test_package.cpp)
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON)
 if(APPLE)

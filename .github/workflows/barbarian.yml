@@ -2,7 +2,7 @@ env:
     CONAN_REMOTES: "https://barbarian.bfgroup.xyz/github@True@barbarian-github"
     CONAN_STABLE_BRANCH_PATTERN: "_____"
     CONAN_UPLOAD_ONLY_WHEN_STABLE: 1
-    CONAN_UPLOAD: no
+    BPT_NO_UPLOAD: yes
 
 on:
     push:

@@ -1,17 +1,10 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.1)
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "Minimum OS X deployment version")
-project(test_package CXX OBJCXX)
+project(test_package CXX)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-if(APPLE)
-	set_source_files_properties(test_package.cpp PROPERTIES LANGUAGE OBJCXX)
-endif()
-
 add_executable(${PROJECT_NAME} test_package.cpp)
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON)
-if(APPLE)
-	set_target_properties(${PROJECT_NAME} PROPERTIES OBJCXX_STANDARD 17 OBJCXX_STANDARD_REQUIRED ON)
-endif()
 target_link_libraries(${PROJECT_NAME} ${CONAN_LIBS})

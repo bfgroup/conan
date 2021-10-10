@@ -4,10 +4,6 @@ The olcPixelGameEngine is a single-file prototyping and game-engine framework
 created in C++. It is a cross-platform supporting Windows, Linux, and macOS.
 The engine is based on the OpenGL rendering API.
 
-NOTE: Starting from olc-pge 2.16 on macOS there is a requirement on the
-Objective-C++ runtime. If you use Cmake it means you also need a recent
-enough Cmake, at least 3.16.0, to get Objective-C++ support.
-
 == Options
 
 `image_loader`::

@@ -118,4 +118,4 @@ class Package(ConanFile):
         if self.settings.os == "Linux":
             self.cpp_info.system_libs = ["pthread", "stdc++fs"]
         if self.settings.os == "Macos":
-            self.cpp_info.frameworks.extend(["GLUT"])
+            self.cpp_info.frameworks.extend(["GLUT", "ObjC"])

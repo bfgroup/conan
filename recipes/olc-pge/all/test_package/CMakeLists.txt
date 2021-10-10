@@ -1,10 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "Minimum OS X deployment version")
-if(APPLE)
-	project(test_package OBJCXX)
-else()
-	project(test_package CXX)
-endif()
+project(test_package CXX OBJCXX)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()

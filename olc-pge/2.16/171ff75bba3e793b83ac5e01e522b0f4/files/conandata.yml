@@ -1,0 +1,4 @@
+sources:
+  '2.16':
+    sha256: 4984705ae43772edac69a6c916f04e2b4bd86553f4bc7feabbf8de286b25a820
+    url: https://github.com/OneLoneCoder/olcPixelGameEngine/archive/refs/tags/v2.16.tar.gz

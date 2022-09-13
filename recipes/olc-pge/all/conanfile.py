@@ -1,6 +1,6 @@
 '''
 @author: René Ferdinand Rivera Morell
-@copyright: Copyright René Ferdinand Rivera Morell 2021
+@copyright: Copyright René Ferdinand Rivera Morell 2021-2022
 @license:
     Distributed under the Boost Software License, Version 1.0.
     (See accompanying file LICENSE_1_0.txt or copy at
@@ -8,6 +8,9 @@
 '''
 from conans import ConanFile, tools, errors
 import os
+
+
+required_conan_version = ">=1.52.0"
 
 
 class Package(ConanFile):
@@ -36,8 +39,9 @@ class Package(ConanFile):
     def source(self):
         tools.get(**self.conan_data["sources"][self.version],
                   strip_root=True, destination=self.source_subfolder)
-        tools.replace_in_file(os.path.join(
-            self.source_subfolder, "olcPixelGameEngine.h"), "#define GL_SILENCE_DEPRECATION", "")
+        if tools.Version(self.version) <= tools.Version("2.16"):
+            tools.replace_in_file(os.path.join(
+                self.source_subfolder, "olcPixelGameEngine.h"), "#define GL_SILENCE_DEPRECATION", "")
 
     no_copy_source = True
 

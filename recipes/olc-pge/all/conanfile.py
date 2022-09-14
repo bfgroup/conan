@@ -56,6 +56,7 @@ class Package(ConanFile):
             self.options.image_loader = "gdi"
 
     def validate(self):
+        # Require C++17 or later.
         if self.settings.compiler.get_safe("cppstd"):
             conan.tools.build.check_min_cppstd(self, 17)
         if self.options.image_loader == "gdi" and self.settings.os != "Windows":

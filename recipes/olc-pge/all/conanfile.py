@@ -6,8 +6,12 @@
     (See accompanying file LICENSE_1_0.txt or copy at
     http://www.boost.org/LICENSE_1_0.txt)
 '''
-from conans import ConanFile, tools, errors
+from conan import ConanFile
+import conan.tools.build
+import conan.tools.files
+import conan.tools.scm
 import os
+import platform
 
 
 required_conan_version = ">=1.52.0"
@@ -37,11 +41,13 @@ class Package(ConanFile):
     source_subfolder = "source_subfolder"
 
     def source(self):
-        tools.get(**self.conan_data["sources"][self.version],
-                  strip_root=True, destination=self.source_subfolder)
-        if tools.Version(self.version) <= tools.Version("2.16"):
-            tools.replace_in_file(os.path.join(
-                self.source_subfolder, "olcPixelGameEngine.h"), "#define GL_SILENCE_DEPRECATION", "")
+        conan.tools.files.get(
+            self, **self.conan_data["sources"][self.version],
+            strip_root=True, destination=self.source_subfolder)
+        if conan.tools.scm.Version(self.version) <= "2.16":
+            conan.tools.files.replace_in_file(
+                self, os.path.join(
+                    self.source_subfolder, "olcPixelGameEngine.h"), "#define GL_SILENCE_DEPRECATION", "")
 
     no_copy_source = True
 
@@ -51,36 +57,29 @@ class Package(ConanFile):
 
     def validate(self):
         if self.settings.compiler.get_safe("cppstd"):
-            tools.check_min_cppstd(self, 17)
+            conan.tools.build.check_min_cppstd(self, 17)
         if self.options.image_loader == "gdi" and self.settings.os != "Windows":
             raise errors.ConanInvalidConfiguration(
                 "GDI image loader only supported on Windows")
-        if self.settings.os == "Linux":
+        if self.settings.os == "Linux" and platform.system() == "Linux":
             # Kludge to check if we can use the system OpenGL available.
             if os.path.exists("/usr/include/GL/glext.h"):
-                glext = tools.load("/usr/include/GL/glext.h")
+                glext = conan.tools.files.load(self, "/usr/include/GL/glext.h")
                 if "ptrdiff_t" in glext:
                     raise errors.ConanInvalidConfiguration(
-                        "Incompatible glext.h header with distro %s %s." % (tools.os_info.linux_distro, tools.os_info.os_version))
-        if self.settings.compiler == "Visual Studio" and tools.Version(self.settings.compiler.version) < "15":
+                        "Incompatible glext.h header with distro %s." % (platform.platform()))
+        if self.settings.compiler == "Visual Studio" and conan.tools.scm.Version(self.settings.compiler.version) < "15":
             raise errors.ConanInvalidConfiguration(
                 "Visual Studio older than 15 not compatible")
-        if self.settings.compiler == "apple-clang" and tools.Version(self.settings.compiler.version) < "11.0":
+        if self.settings.compiler == "apple-clang" and conan.tools.scm.Version(self.settings.compiler.version) < "11.0":
             raise errors.ConanInvalidConfiguration(
                 "Xcode older than 11.0 not compatible")
-        if self.settings.compiler == "gcc" and tools.Version(self.settings.compiler.version) < "8.0":
+        if self.settings.compiler == "gcc" and conan.tools.scm.Version(self.settings.compiler.version) < "8.0":
             raise errors.ConanInvalidConfiguration(
                 "GCC older than 8.0 not compatible")
-        if self.settings.compiler == "clang" and tools.Version(self.settings.compiler.version) < "7.0":
+        if self.settings.compiler == "clang" and conan.tools.scm.Version(self.settings.compiler.version) < "7.0":
             raise errors.ConanInvalidConfiguration(
                 "Clang older than 7.0 not compatible")
-        # if self.settings.os == "Linux":
-        #     if self.settings.compiler == "gcc":
-        #         pass
-        #     elif self.settings.compiler == "clang":
-        #         pass
-        #     with tools.chdir("/tmp"):
-        #         tools.save()
 
     def requirements(self):
         self.requires("opengl/system")
@@ -92,7 +91,7 @@ class Package(ConanFile):
             self.requires("libpng/1.6.37")
 
     def package_id(self):
-        self.info.header_only()
+        self.info.clear()
 
     def package(self):
         self.copy(pattern="LICENCE.md", dst="licenses",

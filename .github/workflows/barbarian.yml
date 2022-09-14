@@ -1,7 +1,6 @@
 env:
     CONAN_REMOTES: "https://barbarian.bfgroup.xyz/github@True@barbarian-github"
     CONAN_BUILD_POLICY: "missing"
-    CONAN_SYSREQUIRES_MODE: "disabled"
     BPT_NO_UPLOAD: yes
     BPT_CONFIG_FILE_VERSION: "11"
 
@@ -15,7 +14,7 @@ name: conan
 jobs:
     generate-matrix:
         name: Generate Job Matrix
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-latest
         outputs:
             matrix: ${{ steps.set-matrix.outputs.matrix }}
         steps:
@@ -39,7 +38,6 @@ jobs:
             matrix: ${{fromJson(needs.generate-matrix.outputs.matrix)}}
         name: ${{ matrix.config.name }}
         steps:
-            - { uses: awalsh128/cache-apt-pkgs-action@latest, with: { packages: libgl-dev } }
             - { uses: actions/checkout@v2, with: { fetch-depth: "0" } }
             - { uses: actions/setup-python@v2, with: { python-version: "3.x" } }
             - name: Install Conan

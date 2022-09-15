@@ -93,6 +93,7 @@ class Package(ConanFile):
             self.requires("libpng/1.6.37")
 
     def package_id(self):
+        # self.info.header_only()
         self.info.clear()
 
     def package(self):

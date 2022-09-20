@@ -7,6 +7,7 @@
     http://www.boost.org/LICENSE_1_0.txt)
 '''
 from conan import ConanFile
+import conan.errors
 import conan.tools.build
 import conan.tools.files
 import conan.tools.scm
@@ -63,29 +64,29 @@ class Package(ConanFile):
             conan.tools.build.check_min_cppstd(self, 17)
         # GDI only exists on Windows.
         if self.options.image_loader == "gdi" and self.settings.os != "Windows":
-            raise errors.ConanInvalidConfiguration(
+            raise conan.errors.ConanInvalidConfiguration(
                 "GDI image loader only supported on Windows")
         if self.settings.os == "Linux" and platform.system() == "Linux":
             # Kludge to check if we can use the system OpenGL available.
             if os.path.exists("/usr/include/GL/glext.h"):
                 glext = conan.tools.files.load(self, "/usr/include/GL/glext.h")
                 if "ptrdiff_t" in glext:
-                    raise errors.ConanInvalidConfiguration(
+                    raise conan.errors.ConanInvalidConfiguration(
                         "Incompatible glext.h header with distro %s." % (platform.platform()))
         # Even though we chack cppstd, we also check compilers. As what std version they support matters..
         # MSVC >= 15 supports C++17
         if self.settings.compiler == "Visual Studio" and conan.tools.scm.Version(self.settings.compiler.version) < "15":
-            raise errors.ConanInvalidConfiguration(
+            raise conan.errors.ConanInvalidConfiguration(
                 "Visual Studio older than 15 not compatible")
         # Xcode >= 11 supports C++17
         if self.settings.compiler == "apple-clang" and conan.tools.scm.Version(self.settings.compiler.version) < "11.0":
-            raise errors.ConanInvalidConfiguration(
+            raise conan.errors.ConanInvalidConfiguration(
                 "Xcode older than 11.0 not compatible")
         if self.settings.compiler == "gcc" and conan.tools.scm.Version(self.settings.compiler.version) < "8.0":
-            raise errors.ConanInvalidConfiguration(
+            raise conan.errors.ConanInvalidConfiguration(
                 "GCC older than 8.0 not compatible")
         if self.settings.compiler == "clang" and conan.tools.scm.Version(self.settings.compiler.version) < "7.0":
-            raise errors.ConanInvalidConfiguration(
+            raise conan.errors.ConanInvalidConfiguration(
                 "Clang older than 7.0 not compatible")
 
     def requirements(self):

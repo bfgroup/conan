@@ -72,6 +72,7 @@ class Package(ConanFile):
                 if "ptrdiff_t" in glext:
                     raise errors.ConanInvalidConfiguration(
                         "Incompatible glext.h header with distro %s." % (platform.platform()))
+        # Even though we chack cppstd, we also check compilers. As what std version they support matters.
         if self.settings.compiler == "Visual Studio" and conan.tools.scm.Version(self.settings.compiler.version) < "15":
             raise errors.ConanInvalidConfiguration(
                 "Visual Studio older than 15 not compatible")

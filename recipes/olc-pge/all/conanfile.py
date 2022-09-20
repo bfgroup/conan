@@ -72,10 +72,12 @@ class Package(ConanFile):
                 if "ptrdiff_t" in glext:
                     raise errors.ConanInvalidConfiguration(
                         "Incompatible glext.h header with distro %s." % (platform.platform()))
-        # Even though we chack cppstd, we also check compilers. As what std version they support matters.
+        # Even though we chack cppstd, we also check compilers. As what std version they support matters..
+        # MSVC >= 15 supports C++17
         if self.settings.compiler == "Visual Studio" and conan.tools.scm.Version(self.settings.compiler.version) < "15":
             raise errors.ConanInvalidConfiguration(
                 "Visual Studio older than 15 not compatible")
+        # Xcode >= 11 supports C++17
         if self.settings.compiler == "apple-clang" and conan.tools.scm.Version(self.settings.compiler.version) < "11.0":
             raise errors.ConanInvalidConfiguration(
                 "Xcode older than 11.0 not compatible")

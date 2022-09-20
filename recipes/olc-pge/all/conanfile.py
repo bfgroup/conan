@@ -47,7 +47,9 @@ class Package(ConanFile):
         if conan.tools.scm.Version(self.version) <= "2.19":
             conan.tools.files.replace_in_file(
                 self, os.path.join(
-                    self.source_subfolder, "olcPixelGameEngine.h"), "#define GL_SILENCE_DEPRECATION", "")
+                    self.source_subfolder, "olcPixelGameEngine.h"),
+                    "#define GL_SILENCE_DEPRECATION", "",
+                    encoding="cp437")
 
     no_copy_source = True
 

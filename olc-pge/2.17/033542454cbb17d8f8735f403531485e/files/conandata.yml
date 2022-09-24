@@ -1,0 +1,4 @@
+sources:
+  '2.17':
+    sha256: d012ff3fca5dfaaf5f12afe41293d84e7dc508aea11f18815abc23a665ac0ae4
+    url: https://github.com/OneLoneCoder/olcPixelGameEngine/archive/refs/tags/v2.17.tar.gz
